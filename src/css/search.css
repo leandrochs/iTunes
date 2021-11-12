@@ -1,0 +1,27 @@
+.searchPage-container {
+  height: 100%;
+}
+
+.searchInput-container {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchInput-container input {
+  background-color: rgb(220, 218, 247);
+  border-radius: 8px;
+  font-size: 112%;
+  height: 8%;
+  text-align: center;
+  width: 53%;
+}
+
+.searchInput-container button {
+  background-color: rgb(193, 193, 199);
+  border-radius: 8px;
+  font-size: 112%;
+  height: 8%;
+  width: 16%;
+}
