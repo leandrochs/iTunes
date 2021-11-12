@@ -1,0 +1,39 @@
+.header-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.up-sectio-container {
+  align-items: center;
+  background-color: rgb(157, 164, 175);
+  border-bottom: solid 2px rgb(80, 81, 82);
+  display: flex;
+  height: 3em;
+  justify-content: space-between;
+  padding: 0 7%;
+}
+
+.down-sectio-container {
+  display: flex;
+  height: 100%;
+}
+
+.Link {
+  align-items: center;
+  background-color: rgb(32, 32, 153);
+  border: solid 1px green;
+  display: flex;
+  flex-grow: 1;
+  height: 3em;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.Link:hover {
+  background-color: rgb(47, 47, 241);
+}
+
+.spanLink {
+  color: aliceblue;
+  font-size: 1.4em;
+}

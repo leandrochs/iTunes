@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import Loadind from '../components/Loading';
+import '../css/login.css';
 
 const MINIMUM_SIZE = 3;
 
@@ -33,13 +34,14 @@ class Login extends React.Component {
     const { nameInput, loading } = this.state;
 
     return (
-      <div data-testid="page-login">
+      <div className="login-container" data-testid="page-login">
         { (loading === true) ? <Loadind /> : null }
-        { (loading === 'completed') ? <Redirect to="/search" /> : null }
-        <div>
+        <h1 className="title-container">TrybeTunes</h1>
+        <div className="nameInput-button-container">
           <input
             type="text"
             data-testid="login-name-input"
+            placeholder="Nome"
             onChange={ this.onInputChange }
             value={ nameInput }
           />
@@ -52,6 +54,7 @@ class Login extends React.Component {
             Entrar
           </button>
         </div>
+        { (loading === 'completed') ? <Redirect to="/search" /> : null }
       </div>
     );
   }
