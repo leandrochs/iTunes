@@ -5,48 +5,45 @@ import '../css/showAlbuns.css';
 
 class ShowAlbuns extends React.Component {
   render() {
-    const { albuns, showArtistName } = this.props;
+    const { albuns } = this.props;
 
-    if (albuns.length > 0) {
-      console.log(albuns);
-      return (
-        <div>
-          <p>{`Resultado de álbuns de: ${showArtistName}`}</p>
-          <div className="card-container">
-            {
-              albuns.map(({
-                artistName,
-                collectionName,
-                collectionId,
-                artworkUrl100,
-              }) => (
-                <Link
-                  key={ collectionId }
-                  data-testid={ `link-to-album-${collectionId}` }
-                  to={ `/album/${collectionId}` }
-                >
-                  <section className="card">
-                    <img src={ artworkUrl100 } alt={ artistName } />
-                    <p>{ artistName }</p>
-                    <p>{ collectionName }</p>
-                  </section>
-                </Link>
-              ))
-            }
+    return (
+      (albuns.length > 0)
+        ? (
+          <div>
+            <div className="card-container">
+              {
+                albuns.map(({
+                  artistName,
+                  collectionName,
+                  collectionId,
+                  artworkUrl100,
+                }) => (
+                  <Link
+                    key={ collectionId }
+                    data-testid={ `link-to-album-${collectionId}` }
+                    to={ `/album/${collectionId}` }
+                  >
+                    <section className="card">
+                      <img src={ artworkUrl100 } alt={ artistName } />
+                      <p>{ artistName }</p>
+                      <p>{ collectionName }</p>
+                    </section>
+                  </Link>
+                ))
+              }
+            </div>
           </div>
-        </div>
-      );
-    } else {
-      return (
-        <>
-          <p>{`Resultado de álbuns de: ${showArtistName}`}</p>
-          <p>Nenhum álbum foi encontrado</p>
-        </>
-      );
-    }
+        )
+        : (
+          <div>
+            <div>Carregando...</div>
+          </div>
+        )
+    );
   }
 }
-  
+
 // ShowAlbuns.propTypes = {
 //   showArtistName: PropTypes.string.isRequired,
 //   albuns: PropTypes.arrayOf(
@@ -58,7 +55,6 @@ class ShowAlbuns extends React.Component {
 
 //   })).isRequired,
 // }
-
 
 // ShowAlbuns.propTypes = {
 //   albuns: PropTypes.arrayOf(
@@ -78,5 +74,11 @@ class ShowAlbuns extends React.Component {
 //     ).isRequired
 //   ).isRequired
 // }
+
+ShowAlbuns.propTypes = {
+  albuns: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+// cards: PropTypes.arrayOf(PropTypes.object).isRequired,
 
 export default ShowAlbuns;

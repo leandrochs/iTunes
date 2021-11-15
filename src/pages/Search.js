@@ -14,7 +14,7 @@ class Search extends React.Component {
       artistName: '',
       showArtistName: '',
       loading: false,
-      albuns: '',
+      albuns: [],
     };
   }
 
@@ -25,51 +25,62 @@ class Search extends React.Component {
     });
   }
 
-  onClickButton = () => {
+onClickButton = () => {
+  this.setState({ loading: true }, async () => {
+    const { artistName } = this.state;
+    const returnSearchAlbumsAPI = await searchAlbumsAPI(artistName);
     this.setState({
-      loading: true,
-    }, async () => {
-      const { artistName } = this.state;
-      const returnSearchAlbumsAPI = await searchAlbumsAPI(artistName);
-      this.setState({ loading: 'completed' });
-      this.setState({
-        showArtistName: artistName,
-        artistName: '',
-        albuns: returnSearchAlbumsAPI,
-      });
+      showArtistName: artistName,
+      artistName: '',
+      albuns: returnSearchAlbumsAPI,
+      loading: 'completed',
     });
-  }
+  });
+}
 
-  render() {
-    const { artistName, loading, albuns, showArtistName } = this.state;
+render() {
+  const { artistName, loading, albuns, showArtistName } = this.state;
 
-    return (
-      <div className="searchPage-container" data-testid="page-search">
-        <Header />
-        <div className="searchInput-container">
-          <input
-            type="text"
-            data-testid="search-artist-input"
-            placeholder="Banda ou artista"
-            onChange={ this.onInputChange }
-            value={ artistName }
-          />
-          <button
-            data-testid="search-artist-button"
-            type="submit"
-            disabled={ (artistName.length < MINIMUM_SIZE) }
-            onClick={ this.onClickButton }
-          >
-            Pesquisar
-          </button>
-        </div>
-        { (loading === true) ? <Loadind /> : null }
-        { (loading === 'completed')
-          ? <ShowAlbuns albuns={ albuns } showArtistName={ showArtistName } />
-          : null }
+  return (
+    <div className="searchPage-container" data-testid="page-search">
+      <Header />
+      <div className="searchInput-container">
+        <input
+          type="text"
+          data-testid="search-artist-input"
+          placeholder="Banda ou artista"
+          onChange={ this.onInputChange }
+          value={ artistName }
+        />
+        <button
+          data-testid="search-artist-button"
+          type="submit"
+          disabled={ (artistName.length < MINIMUM_SIZE) }
+          onClick={ this.onClickButton }
+        >
+          Pesquisar
+        </button>
       </div>
-    );
-  }
+      { (loading === true) ? <Loadind /> : null }
+      { (loading === 'completed' && albuns.length > 0)
+        ? (
+          <div>
+            <p>{`Resultado de álbuns de: ${showArtistName}`}</p>
+            <ShowAlbuns albuns={ albuns } />
+          </div>
+        )
+        : null }
+      { (loading === 'completed' && albuns.length < 1)
+        ? (
+          <>
+            <p>{`Resultado de álbuns de: ${showArtistName}`}</p>
+            <p>Nenhum álbum foi encontrado</p>
+          </>
+        )
+        : null }
+    </div>
+  );
+}
 }
 
 export default Search;
