@@ -20,6 +20,8 @@ class Album extends React.Component {
 
   musicsAPINow = async () => {
     const { match } = this.props;
+    // console.log(typeof match);
+    // console.log(match);
     const { params } = match;
     const { id: collectionId } = params;
     // const { id: collectionId } = this.props.match.params;
@@ -43,7 +45,8 @@ class Album extends React.Component {
 }
 
 Album.propTypes = {
-  match: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // match: PropTypes.arrayOf(PropTypes.object).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
   // showArtistName: PropTypes.string.isRequired,
 };
 

@@ -1,0 +1,24 @@
+.img-artist-album-container {
+  border: solid 2px green;
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.img-artist-album-container img {
+  padding-right: 1%;
+}
+
+.artist-album-container {
+  border: solid 2px red;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  /* width: 100%; */
+}
+
+.artist-album-container div {
+  /* margin: 9% 0 0 5%; */
+  /* padding: 9% 0 0 5%; */
+}
