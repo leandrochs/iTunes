@@ -32,7 +32,6 @@ export const addSong = (song) => new Promise((resolve) => {
   if (song) {
     const favoriteSongs = readFavoriteSongs();
     saveFavoriteSongs([...favoriteSongs, song]);
-    console.log("salvou", song);
   }
   simulateRequest(SUCCESS_STATUS)(resolve);
 });

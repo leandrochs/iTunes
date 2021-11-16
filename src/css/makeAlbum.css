@@ -13,12 +13,5 @@
   border: solid 2px red;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
-  /* width: 100%; */
-}
-
-.artist-album-container div {
-  /* margin: 9% 0 0 5%; */
-  /* padding: 9% 0 0 5%; */
 }

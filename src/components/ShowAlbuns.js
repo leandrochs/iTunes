@@ -56,25 +56,6 @@ class ShowAlbuns extends React.Component {
 //   })).isRequired,
 // }
 
-// ShowAlbuns.propTypes = {
-//   albuns: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       artistId: PropTypes.number.isRequired,
-//       artistName: PropTypes.string.isRequired,
-//       collectionId: PropTypes.number.isRequired,
-//       artworkUrl100: PropTypes.number.isRequired,
-//     }).isRequired
-//   ).isRequired
-// }
-
-// ShowAlbuns.propTypes = {
-//   albuns: PropTypes.arrayOf(
-//     PropTypes.objectOf(
-//       PropTypes.string.isRequired
-//     ).isRequired
-//   ).isRequired
-// }
-
 ShowAlbuns.propTypes = {
   albuns: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

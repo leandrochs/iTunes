@@ -1,39 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MusicCard from './MusicCard';
-import "../css/makeAlbum.css"
+import '../css/makeAlbum.css';
 import Loadind from './Loading';
 import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class MakeAlbum extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       loading: false,
       allMusicsAlbum: [],
       checkbox: [],
-    }
+    };
   }
 
   loadingFavorite = (trackId) => {
     const { loading, checkbox } = this.state;
-    this.setState({ loading: !loading })
-    console.log("chegou em loadingFavorite", trackId);
+    this.setState({ loading: !loading });
     if (trackId) {
-      this.setState({ checkbox: [...checkbox, trackId] })
+      this.setState({ checkbox: [...checkbox, trackId] });
     }
   }
 
-  componentDidMount = async () => {
-    const { loading } = this.state;
-    this.setState({ loading: true })
+  getFavoriteSongsNow = async () => {
+    // const { loading } = this.state;
+    this.setState({ loading: true });
 
-    const allMusicsAlbum = await getFavoriteSongs()
-    this.setState({ allMusicsAlbum: allMusicsAlbum }, () => {
-      this.setState({ loading: false })
-    })
+    const allMusics = await getFavoriteSongs();
+    this.setState({ allMusicsAlbum: allMusics }, () => {
+      this.setState({ loading: false });
+    });
   }
 
+  componentDidMount = () => {
+    this.getFavoriteSongsNow();
+  }
 
   render() {
     const { data } = this.props;
@@ -41,7 +43,7 @@ class MakeAlbum extends React.Component {
 
     return (
       <div>
-        <div style={ (loading) ? {display: 'none'} : {} }>
+        <div style={ (loading) ? { display: 'none' } : {} }>
           <section className="img-artist-album-container">
             <img src={ data[0].artworkUrl100 } alt="Nome do album" />
             <span className="artist-album-container">
@@ -55,16 +57,15 @@ class MakeAlbum extends React.Component {
           </section>
           <section>
             {
-              data.map((dataMusic) => {
-                if (dataMusic.previewUrl) {
+              data.map(({ previewUrl, trackId, trackName }) => {
+                if (previewUrl) {
                   return (
                     <MusicCard
-                      key={ dataMusic.trackId }
-                      dataMusic={ dataMusic }
+                      key={ trackId }
                       loadingFavorite={ this.loadingFavorite }
-                      hasCheck={ allMusicsAlbum.some((local) => local == dataMusic.trackId) }
-                      // allMusicsAlbum={ allMusicsAlbum }
-                      trackId={ dataMusic.trackId }
+                      hasCheck={ allMusicsAlbum.some((local) => local === trackId) }
+                      trackId={ trackId }
+                      trackName={ trackName }
                     />
                   );
                 }
@@ -73,7 +74,7 @@ class MakeAlbum extends React.Component {
             }
           </section>
         </div>
-          {(loading) ? <Loadind /> : null}
+        {(loading) ? <Loadind /> : null}
       </div>
     );
   }
