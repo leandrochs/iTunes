@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import MusicCard from './MusicCard';
 import "../css/makeAlbum.css"
 import Loadind from './Loading';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class MakeAlbum extends React.Component {
   constructor() {
     super()
     this.state = {
       loading: false,
+      favoriteMusics: [],
     }
   }
 
@@ -18,10 +20,20 @@ class MakeAlbum extends React.Component {
     console.log("chegou em loadingFavorite");
   }
 
+  componentDidMount = async () => {
+    const { loading } = this.state;
+    this.setState({ loading: true })
+
+    const favoriteMusics = await getFavoriteSongs()
+    this.setState({ favoriteMusics: favoriteMusics }, () => {
+      this.setState({ loading: false })
+    })
+  }
+
 
   render() {
     const { data } = this.props;
-    const { loading } = this.state;
+    const { loading, favoriteMusics } = this.state;
 
     return (
       <div>
@@ -46,6 +58,9 @@ class MakeAlbum extends React.Component {
                       key={ dataMusic.trackId }
                       dataMusic={ dataMusic }
                       loadingFavorite={ this.loadingFavorite }
+                      hasCheck={ favoriteMusics.some((local) => local == dataMusic.trackId) }
+                      favoriteMusics={ favoriteMusics }
+                      trackId={ dataMusic.trackId }
                     />
                   );
                 }

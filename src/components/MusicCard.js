@@ -6,26 +6,33 @@ class MusicCard extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
-      checked: false,
-    }
+      // loading: false,
+      checked: null,
+      favoriteMusics: [],
+    }    
   }
   
   onInputChange = async ({ target }) => {
     const { loadingFavorite } = this.props;
-    const { trackId } = target;
+    const trackId = target.value;
     loadingFavorite();
     const addSongResult = await addSong(trackId)
-    console.log(addSongResult);
+    // console.log(addSongResult);
     const { checked } = this.state;
-    this.setState({ checked: !checked }, () => {
+    const { favoriteMusics } = this.state;
+    this.setState({ 
+      checked: !checked,
+      favoriteMusics: [...favoriteMusics, trackId],
+    }, () => {
       loadingFavorite();
     })
   }
 
   render() {
     const { previewUrl, trackName, trackId } = this.props.dataMusic;
-    const { checked } = this.props;
+    const { checked } = this.state;
+    const { hasCheck } = this.props;
+    // console.log(hasCheck);
 
     return(
       <div className="musicCard-container">
@@ -42,8 +49,8 @@ class MusicCard extends React.Component {
               id="imput-favorite-music"
               type="checkbox"
               onChange={ this.onInputChange }
-              checked={ checked }
-              // value={ checked }
+              checked={ hasCheck }
+              value={ trackId }
             />
           </label>
         </section>

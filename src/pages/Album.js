@@ -1,4 +1,3 @@
-// import { object } from 'prop-types';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Header from '../components/Header';
@@ -20,11 +19,8 @@ class Album extends React.Component {
 
   musicsAPINow = async () => {
     const { match } = this.props;
-    // console.log(typeof match);
-    // console.log(match);
     const { params } = match;
     const { id: collectionId } = params;
-    // const { id: collectionId } = this.props.match.params;
     const musicAPIResponse = await getMusics(collectionId);
 
     this.setState({ data: musicAPIResponse }, () => {
@@ -45,9 +41,7 @@ class Album extends React.Component {
 }
 
 Album.propTypes = {
-  // match: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
-  // showArtistName: PropTypes.string.isRequired,
 };
 
 export default Album;
