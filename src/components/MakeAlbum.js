@@ -10,22 +10,26 @@ class MakeAlbum extends React.Component {
     super()
     this.state = {
       loading: false,
-      favoriteMusics: [],
+      allMusicsAlbum: [],
+      checkbox: [],
     }
   }
 
-  loadingFavorite = () => {
-    const { loading } = this.state;
+  loadingFavorite = (trackId) => {
+    const { loading, checkbox } = this.state;
     this.setState({ loading: !loading })
-    console.log("chegou em loadingFavorite");
+    console.log("chegou em loadingFavorite", trackId);
+    if (trackId) {
+      this.setState({ checkbox: [...checkbox, trackId] })
+    }
   }
 
   componentDidMount = async () => {
     const { loading } = this.state;
     this.setState({ loading: true })
 
-    const favoriteMusics = await getFavoriteSongs()
-    this.setState({ favoriteMusics: favoriteMusics }, () => {
+    const allMusicsAlbum = await getFavoriteSongs()
+    this.setState({ allMusicsAlbum: allMusicsAlbum }, () => {
       this.setState({ loading: false })
     })
   }
@@ -33,7 +37,7 @@ class MakeAlbum extends React.Component {
 
   render() {
     const { data } = this.props;
-    const { loading, favoriteMusics } = this.state;
+    const { loading, allMusicsAlbum } = this.state;
 
     return (
       <div>
@@ -58,8 +62,8 @@ class MakeAlbum extends React.Component {
                       key={ dataMusic.trackId }
                       dataMusic={ dataMusic }
                       loadingFavorite={ this.loadingFavorite }
-                      hasCheck={ favoriteMusics.some((local) => local == dataMusic.trackId) }
-                      favoriteMusics={ favoriteMusics }
+                      hasCheck={ allMusicsAlbum.some((local) => local == dataMusic.trackId) }
+                      // allMusicsAlbum={ allMusicsAlbum }
                       trackId={ dataMusic.trackId }
                     />
                   );

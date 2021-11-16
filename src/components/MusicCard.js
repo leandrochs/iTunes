@@ -8,7 +8,7 @@ class MusicCard extends React.Component {
     this.state = {
       // loading: false,
       checked: null,
-      favoriteMusics: [],
+      // favoriteMusics: [],
     }    
   }
   
@@ -19,12 +19,9 @@ class MusicCard extends React.Component {
     const addSongResult = await addSong(trackId)
     // console.log(addSongResult);
     const { checked } = this.state;
-    const { favoriteMusics } = this.state;
-    this.setState({ 
-      checked: !checked,
-      favoriteMusics: [...favoriteMusics, trackId],
-    }, () => {
-      loadingFavorite();
+    // const { favoriteMusics } = this.state;
+    this.setState({ checked: !checked }, () => {
+      loadingFavorite(trackId);
     })
   }
 
@@ -33,6 +30,7 @@ class MusicCard extends React.Component {
     const { checked } = this.state;
     const { hasCheck } = this.props;
     // console.log(hasCheck);
+    const checkbox = (checked === null) ? hasCheck : checked;
 
     return(
       <div className="musicCard-container">
@@ -49,7 +47,7 @@ class MusicCard extends React.Component {
               id="imput-favorite-music"
               type="checkbox"
               onChange={ this.onInputChange }
-              checked={ hasCheck }
+              checked={ checkbox }
               value={ trackId }
             />
           </label>
