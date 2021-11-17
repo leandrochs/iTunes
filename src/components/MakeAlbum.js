@@ -19,7 +19,7 @@ class MakeAlbum extends React.Component {
     const { loading, checkbox } = this.state;
     this.setState({ loading: !loading });
     if (trackId) {
-      this.setState({ checkbox: [...checkbox, trackId] });
+      this.setState({ checkbox: [...checkbox, { trackId }] });
     }
   }
 
@@ -62,8 +62,9 @@ class MakeAlbum extends React.Component {
                   return (
                     <MusicCard
                       key={ trackId }
+                      previewUrl={ previewUrl }
                       loadingFavorite={ this.loadingFavorite }
-                      hasCheck={ allMusicsAlbum.some((local) => local === trackId) }
+                      hasCheck={ allMusicsAlbum.some((local) => local.trackId === trackId.toString()) }
                       trackId={ trackId }
                       trackName={ trackName }
                     />

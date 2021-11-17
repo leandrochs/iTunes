@@ -18,9 +18,9 @@ class MusicCard extends React.Component {
 
     // (!checked) ? await removeSong(value) : await addSong(value);
     if (!checked) {
-      await removeSong(value);
+      await removeSong({ trackId: value });
     } else {
-      await addSong(value);
+      await addSong({ trackId: value });
     }
     console.log(checked);
     console.log(value);
