@@ -1,39 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/musicCard.css';
-import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      check: null,
-    };
-  }
 
-  onInputChange = async ({ target: { value, checked } }) => {
-    const { loadingFavorite } = this.props;
-    const trackId = value;
-    loadingFavorite();
 
-    // (!checked) ? await removeSong(value) : await addSong(value);
-    if (!checked) {
-      await removeSong({ trackId: value });
-    } else {
-      await addSong({ trackId: value });
-    }
-    console.log(checked);
-    console.log(value);
-    this.setState({ check: checked }, () => {
-      loadingFavorite(trackId);
-    });
-  }
 
   render() {
-    const { previewUrl, trackName, trackId, hasCheck } = this.props;
-    const { check } = this.state;
-    const checkbox = (check === null) ? hasCheck : check;
-    // console.log(typeof previewUrl);
+    const { previewUrl, trackName, trackId, hasCheck, onInputChange } = this.props;
 
     return (
       <div className="musicCard-container">
@@ -49,9 +23,9 @@ class MusicCard extends React.Component {
             <input
               data-testid={ `checkbox-music-${trackId}` }
               id="imput-favorite-music"
-              type="checkbox"
-              onChange={ this.onInputChange }
-              checked={ checkbox }
+              type='checkbox'
+              onChange={ onInputChange }
+              checked={ hasCheck }
               value={ trackId }
             />
           </label>
@@ -70,3 +44,10 @@ MusicCard.propTypes = {
 };
 
 export default MusicCard;
+
+// {
+//   trackId: 12,
+//   trackName: 'Track Name 1',
+//   previewUrl: 'preview-url-1',
+//   kind: 'song',
+// }

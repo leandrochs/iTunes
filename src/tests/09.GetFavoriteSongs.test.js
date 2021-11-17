@@ -11,7 +11,7 @@ import {
   musicAPIDefaultResponse,
   favoriteSongsList
 } from './mocks';
-
+favoriteSongsList
 describe('9 - Faça a requisição para recuperar as músicas favoritas ao entrar na página do Álbum', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -38,7 +38,6 @@ describe('9 - Faça a requisição para recuperar as músicas favoritas ao entra
 
       expect(spy).toBeCalled();
     });
-
 
     it('Será validado se, ao entrar na página, o número de checkboxes marcados como `checked` é correspondente ao número de músicas que já foram favoritadas',
     async () => {
