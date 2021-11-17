@@ -29,7 +29,7 @@
   text-decoration: none;
 }
 
-.Link:hover {
+.Link:focus {
   background-color: rgb(47, 47, 241);
 }
 
