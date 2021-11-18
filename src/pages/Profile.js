@@ -34,7 +34,6 @@ class Profile extends React.Component {
     return (
       <div data-testid="page-profile">
         <Header />
-        profile page
         { (loading) ? <Loadind /> : (
           <section className="profile-container">
             <img

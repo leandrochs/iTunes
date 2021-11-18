@@ -1,28 +1,37 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Loadind from '../components/Loading';
-import { getUser } from '../services/userAPI';
+import { getUser, updateUser } from '../services/userAPI';
 import '../css/profileEdit.css';
 
 class ProfileEdit extends React.Component {
   constructor() {
     super();
     this.state = {
-      // user: {},
       newName: '',
       newEmail: '',
       newImage: '',
       newDescription: '',
       loading: true,
+      submitPress: false,
+      isEmail: true,
     };
+  }
+
+  checkEmail = (newEmail) => {
+    const textEmail = newEmail.split('@');
+    const validation = (textEmail.length === 2);
+    this.setState({ isEmail: validation });
   }
 
   getUserNow = async () => {
     this.setState({ loading: true });
     const theUser = await getUser();
     const { name, email, image, description } = theUser;
+    this.checkEmail(email);
+
     this.setState({
-      // user: theUser,
       newName: name,
       newEmail: email,
       newImage: image,
@@ -36,6 +45,30 @@ class ProfileEdit extends React.Component {
     this.setState({
       [name]: value,
     });
+
+    if (name === 'newEmail') this.checkEmail(value);
+  }
+
+  // inputImage = ({ target }) => { // Arquivo do computador
+  //   const file = target.files[0];
+  //   const fileReader = new FileReader();
+  //   fileReader.readAsDataURL(file);
+  //   fileReader.onload = () => { this.setState({ newImage: fileReader.result }) }
+  // };
+
+  submitForm = async (event) => {
+    event.preventDefault();
+    this.setState({ loading: true });
+    const { newName, newEmail, newImage, newDescription } = this.state;
+    const dataForSubmit = {
+      name: newName,
+      email: newEmail,
+      description: newDescription,
+      image: newImage,
+    };
+
+    await updateUser(dataForSubmit);
+    this.setState({ submitPress: true });
   }
 
   componentDidMount = () => {
@@ -43,7 +76,8 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
-    const { newName, newEmail, newImage, newDescription, loading } = this.state;
+    const { newName, newEmail, newImage, newDescription, loading,
+      isEmail, submitPress } = this.state;
 
     return (
       <div data-testid="page-profile-edit">
@@ -55,7 +89,31 @@ class ProfileEdit extends React.Component {
               alt="Profile"
               data-testid="profile-image"
             />
-            <form className="profile-container">
+            <p>Alterar Imagem</p>
+            <br />
+            <br />
+            <p>Endereço da internet</p>
+            <input
+              id="newImage"
+              type="text"
+              data-testid="edit-input-image"
+              name="newImage"
+              onChange={ this.handleChange }
+              value={ newImage }
+            />
+            <br />
+            <br />
+            {
+              // <p>Arquivo do computador</p>
+              // <input
+              //   id="input-image"
+              //   type="file"
+              //   onChange={ this.inputImage }
+              // />
+            }
+            <form
+              className="profile-container"
+            >
               <label htmlFor="newName">
                 Nome
                 <input
@@ -89,14 +147,18 @@ class ProfileEdit extends React.Component {
                   onChange={ this.handleChange }
                 />
               </label>
-              <label htmlFor="input-image">
-                Alterar Imagem
-                <input id="input-image" type="file" data-testid="edit-input-image" />
-              </label>
-              <button type="submit" data-testid="edit-button-save">Salvar</button>
+              <button
+                type="submit"
+                data-testid="edit-button-save"
+                disabled={ !newName || !isEmail || !newDescription }
+                onClick={ this.submitForm }
+              >
+                Salvar
+              </button>
             </form>
           </section>
         ) }
+        { (submitPress) ? <Redirect to="/profile" /> : null }
       </div>
     );
   }

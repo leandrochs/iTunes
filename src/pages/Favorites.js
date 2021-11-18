@@ -58,7 +58,6 @@ class Favorites extends React.Component {
     return (
       <div data-testid="page-favorites">
         <Header />
-        favorites page
         <section>
 
           { (!loading) ? (

@@ -5,3 +5,17 @@
   justify-content: center;
   margin: 8% 0;
 }
+
+.profile-container form label {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8% 0;
+}
+
+.profile-container img {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
