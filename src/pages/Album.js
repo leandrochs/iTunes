@@ -4,11 +4,9 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 
 import '../css/makeAlbum.css';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loadind from '../components/Loading';
 import MusicCard from '../components/MusicCard';
-import { addSong, removeSong } from '../services/favoriteSongsAPI';
-
+import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -16,11 +14,14 @@ class Album extends React.Component {
     this.state = {
       data: [],
       loading: true,
-      loadingII: false,
       localChecked: [],
       checkbox: [],
-      check: false,
     };
+  }
+
+  componentDidMount() {
+    this.musicsAPINow();
+    this.getFavoriteSongsNow();
   }
 
   musicsAPINow = async () => {
@@ -35,31 +36,28 @@ class Album extends React.Component {
     });
   }
 
-  ////
   loadingFavorite = (trackId) => {
-    const { loadingII, checkbox } = this.state;
-    this.setState({ loadingII: !loadingII });
+    const { loading, checkbox } = this.state;
+    this.setState({ loading: !loading });
     if (trackId) {
       this.setState({ checkbox: [...checkbox, trackId] });
     }
   }
 
   getFavoriteSongsNow = async () => {
-    this.setState({ loadingII: true });
+    this.setState({ loading: true });
 
     const getLocalStorage = await getFavoriteSongs();
     this.setState({ localChecked: getLocalStorage }, () => {
-      this.setState({ loadingII: false });
+      this.setState({ loading: false });
     });
   }
 
   onInputChange = async ({ target: { value, checked } }) => {
     this.loadingFavorite();
-    const trackId = value;
     const { data } = this.state;
- 
-    const targetMusic = data.filter((d) => d.trackId == trackId)
-    console.log("targetMusic:", ...targetMusic);
+
+    const targetMusic = data.filter(({ trackId }) => trackId === parseInt(value, 10));
 
     if (!checked) {
       await removeSong(...targetMusic);
@@ -67,39 +65,32 @@ class Album extends React.Component {
       await addSong(...targetMusic);
     }
 
-    this.setState({ check: checked }, () => {
-      this.loadingFavorite(trackId);
-      this.getFavoriteSongsNow();
-    });
-  }
-
-  componentDidMount() {
-    this.musicsAPINow();
+    this.loadingFavorite(value);
     this.getFavoriteSongsNow();
   }
-  
+
   render() {
-    const { data, loading, loadingII, localChecked } = this.state;
+    const { data, loading, localChecked } = this.state;
 
     return (
       <div data-testid="page-album">
         <Header />
-           <div style={ (loadingII) ? { display: 'none' } : {} }>
-          { (!loading) ? ( <section className="img-artist-album-container">
-            <img src={ data[0].artworkUrl100 } alt="Nome do album" />
-            <span className="artist-album-container">
-              <div data-testid="artist-name">
-                { data[0].artistName}
-              </div>
-              <div data-testid="album-name">
-                {data[0].collectionName }
-              </div>
-            </span>
-             </section>
-             ) : null
-          }
-             <section>
-          { (!loading) ? ( 
+        <div>
+          { (!loading) ? (
+            <section className="img-artist-album-container">
+              <img src={ data[0].artworkUrl100 } alt="Nome do album" />
+              <span className="artist-album-container">
+                <div data-testid="artist-name">
+                  { data[0].artistName}
+                </div>
+                <div data-testid="album-name">
+                  {data[0].collectionName }
+                </div>
+              </span>
+            </section>
+          ) : null }
+          <section>
+            { (!loading) ? (
               data.map(({ previewUrl, trackId, trackName }) => {
                 if (previewUrl) {
                   return (
@@ -110,7 +101,7 @@ class Album extends React.Component {
                       onInputChange={ this.onInputChange }
                       hasCheck={
                         localChecked
-                          .some((local) => local.trackId == trackId)
+                          .some((local) => local.trackId === trackId)
                       }
                       trackId={ trackId }
                       trackName={ trackName }
@@ -118,15 +109,25 @@ class Album extends React.Component {
                   );
                 }
                 return null;
-              } ) 
-            ) : null
-          } 
+              })
+            ) : null }
           </section>
         </div>
-        {(loadingII) ? <Loadind /> : null }
+        {(loading) ? <Loadind /> : null }
       </div>
     );
   }
 }
 
+Album.propTypes = {
+  // hasCheck: PropTypes.bool.isRequired,
+  // trackId: PropTypes.number.isRequired,
+  match: PropTypes.string.isRequired,
+  params: PropTypes.string.isRequired,
+};
+
 export default Album;
+
+// const { match } = this.props;
+// const { params } = match;
+// const { id: collectionId } = params;
