@@ -2,7 +2,12 @@ import React from 'react';
 import Header from '../components/Header';
 import Loadind from '../components/Loading';
 import MusicCard from '../components/MusicCard';
-import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import {
+  addSong,
+  getFavoriteSongs,
+  removeSong,
+} from '../services/favoriteSongsAPI';
+import '../css/favorites.css';
 
 class Favorites extends React.Component {
   constructor() {
@@ -26,19 +31,21 @@ class Favorites extends React.Component {
     this.setState({ localChecked: getLocalStorage }, () => {
       this.setState({ loading: false });
     });
-  }
+  };
 
   loadingFavorite = () => {
     const { loading } = this.state;
     this.setState({ loading: !loading });
-  }
+  };
 
   onInputChange = async ({ target: { value, checked } }) => {
     this.loadingFavorite();
     const trackId = value;
     const { localChecked } = this.state;
 
-    const targetMusic = localChecked.filter((d) => d.trackId === parseInt(trackId, 10));
+    const targetMusic = localChecked.filter(
+      (d) => d.trackId === parseInt(trackId, 10),
+    );
 
     if (targetMusic.length > 0) {
       if (!checked) {
@@ -50,17 +57,16 @@ class Favorites extends React.Component {
 
     this.loadingFavorite(trackId);
     this.getFavoriteSongsNow();
-  }
+  };
 
   render() {
     const { loading, localChecked } = this.state;
 
     return (
-      <div data-testid="page-favorites">
+      <div data-testid="page-favorites" className="favorites-container">
         <Header />
         <section>
-
-          { (!loading) ? (
+          {!loading ? (
             localChecked.map(({ previewUrl, trackId, trackName }) => {
               if (previewUrl) {
                 return (
@@ -68,10 +74,9 @@ class Favorites extends React.Component {
                     key={ trackId }
                     previewUrl={ previewUrl }
                     onInputChange={ this.onInputChange }
-                    hasCheck={
-                      localChecked
-                        .some((local) => local.trackId === trackId)
-                    }
+                    hasCheck={ localChecked.some(
+                      (local) => local.trackId === trackId,
+                    ) }
                     trackId={ trackId }
                     trackName={ trackName }
                   />
@@ -79,10 +84,14 @@ class Favorites extends React.Component {
               }
               return null;
             })
-          ) : <Loadind />}
+          ) : (
+            <Loadind />
+          )}
         </section>
+        {localChecked.length === 0 ? (
+          <div className="alert-no-favorites">Nada por aqui ainda =/</div>
+        ) : null}
       </div>
-
     );
   }
 }
