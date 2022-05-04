@@ -21,32 +21,36 @@ class Profile extends React.Component {
     this.setState({ user: theUser }, () => {
       this.setState({ loading: false });
     });
-  }
+  };
 
   componentDidMount = () => {
     this.getUserNow();
-  }
+  };
 
   render() {
     const { loading } = this.state;
-    const { user: { name, email, image, description } } = this.state;
+    const {
+      user: { name, email, image, description },
+    } = this.state;
 
     return (
-      <div data-testid="page-profile">
+      <div data-testid="page-profile" className="page-profile">
         <Header />
-        { (loading) ? <Loadind /> : (
+        {loading ? (
+          <Loadind />
+        ) : (
           <section className="profile-container">
-            <img
-              src={ image }
-              alt="Profile"
-              data-testid="profile-image"
-            />
-            <p>{ name }</p>
-            <p>{ email }</p>
-            <p>{ description }</p>
-            <Link to="/profile/edit">Editar perfil</Link>
+            {image ? (
+              <img src={ image } alt="Profile" data-testid="profile-image" />
+            ) : null}
+            <p>{name}</p>
+            <p>{email}</p>
+            <p>{description}</p>
+            <Link to="/profile/edit" className="profile-edit-link">
+              Editar perfil
+            </Link>
           </section>
-        ) }
+        )}
       </div>
     );
   }
