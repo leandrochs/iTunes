@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import '../css/header.css';
+import logoApple from '../images/apple_logo.png';
 import Loadind from './Loading';
 
 class Header extends React.Component {
@@ -25,30 +26,46 @@ class Header extends React.Component {
         loading: false,
       });
     });
-  }
+  };
 
   render() {
     const { fromGetUser, loading } = this.state;
     const loadingTag = <Loadind />;
-    const loadCompleted = <div>{ fromGetUser }</div>;
+    const loadCompleted = <div className="header-user-name">{fromGetUser}</div>;
 
     return (
       <header className="header-container" data-testid="header-component">
         <section className="up-sectio-container">
-          <div>TribeTunes</div>
+          <div className="header-logo-title-container">
+            <img
+              src={ logoApple }
+              className="header-logo-img-apple"
+              alt="Logo Apple"
+            />
+            <div className="header-title-container">
+              <h1 className="header-title">iTunes</h1>
+              <h1 className="header-title header-title-signature">
+                by Leandro
+              </h1>
+            </div>
+          </div>
           <div data-testid="header-user-name">
-            { loading ? loadingTag : loadCompleted }
+            {loading ? loadingTag : loadCompleted}
           </div>
         </section>
         <section className="down-sectio-container">
           <Link className="Link" to="/search" data-testid="link-to-search">
-            <span className="spanLink"> Pesquisa </span>
+            <span className="header-link-span"> Pesquisa </span>
           </Link>
-          <Link data-testid="link-to-favorites" className="Link" to="/favorites">
-            <span className="spanLink"> Favoritos </span>
+          <Link
+            data-testid="link-to-favorites"
+            className="Link"
+            to="/favorites"
+          >
+            <span className="header-link-span"> Favoritos </span>
           </Link>
           <Link data-testid="link-to-profile" className="Link" to="/profile">
-            <span className="spanLink"> Profile </span>
+            <span className="header-link-span"> Profile </span>
           </Link>
         </section>
       </header>
