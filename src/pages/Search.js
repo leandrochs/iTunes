@@ -48,7 +48,7 @@ render() {
         <input
           type="text"
           data-testid="search-artist-input"
-          placeholder="Banda ou artista"
+          placeholder="Pesquise por Banda ou artista"
           onChange={ this.onInputChange }
           value={ artistName }
         />
