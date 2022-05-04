@@ -21,9 +21,9 @@ class ProfileEdit extends React.Component {
 
   checkEmail = (newEmail) => {
     const textEmail = newEmail.split('@');
-    const validation = (textEmail.length === 2);
+    const validation = textEmail.length === 2;
     this.setState({ isEmail: validation });
-  }
+  };
 
   getUserNow = async () => {
     this.setState({ loading: true });
@@ -31,15 +31,18 @@ class ProfileEdit extends React.Component {
     const { name, email, image, description } = theUser;
     this.checkEmail(email);
 
-    this.setState({
-      newName: name,
-      newEmail: email,
-      newImage: image,
-      newDescription: description,
-    }, () => {
-      this.setState({ loading: false });
-    });
-  }
+    this.setState(
+      {
+        newName: name,
+        newEmail: email,
+        newImage: image,
+        newDescription: description,
+      },
+      () => {
+        this.setState({ loading: false });
+      },
+    );
+  };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({
@@ -47,14 +50,14 @@ class ProfileEdit extends React.Component {
     });
 
     if (name === 'newEmail') this.checkEmail(value);
-  }
+  };
 
-  // inputImage = ({ target }) => { // Arquivo do computador
-  //   const file = target.files[0];
-  //   const fileReader = new FileReader();
-  //   fileReader.readAsDataURL(file);
-  //   fileReader.onload = () => { this.setState({ newImage: fileReader.result }) }
-  // };
+  inputImage = ({ target }) => { // Arquivo do computador
+    const file = target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => { this.setState({ newImage: fileReader.result }) }
+  };
 
   submitForm = async (event) => {
     event.preventDefault();
@@ -69,30 +72,37 @@ class ProfileEdit extends React.Component {
 
     await updateUser(dataForSubmit);
     this.setState({ submitPress: true });
-  }
+  };
 
   componentDidMount = () => {
     this.getUserNow();
-  }
+  };
 
   render() {
-    const { newName, newEmail, newImage, newDescription, loading,
-      isEmail, submitPress } = this.state;
+    const {
+      newName,
+      newEmail,
+      newImage,
+      newDescription,
+      loading,
+      isEmail,
+      submitPress,
+    } = this.state;
 
     return (
-      <div data-testid="page-profile-edit">
+      <div data-testid="page-profile-edit" className="page-profile-edit">
         <Header />
-        { (loading) ? <Loadind /> : (
+        {loading ? (
+          <Loadind />
+        ) : (
           <section className="profile-container">
-            <img
-              src={ newImage }
-              alt="Profile"
-              data-testid="profile-image"
-            />
+            {newImage ? (
+              <img src={ newImage } alt="Profile" data-testid="profile-image" />
+            ) : null}
             <p>Alterar Imagem</p>
             <br />
             <br />
-            <p>Endereço da internet</p>
+            {/* <p>Endereço da internet</p>
             <input
               id="newImage"
               type="text"
@@ -100,20 +110,14 @@ class ProfileEdit extends React.Component {
               name="newImage"
               onChange={ this.handleChange }
               value={ newImage }
-            />
+            /> */}
             <br />
             <br />
-            {
-              // <p>Arquivo do computador</p>
-              // <input
-              //   id="input-image"
-              //   type="file"
-              //   onChange={ this.inputImage }
-              // />
-            }
-            <form
-              className="profile-container"
-            >
+
+            <p>Arquivo do computador</p>
+            <input id="input-image" type="file" onChange={ this.inputImage } />
+
+            <form className="profile-container">
               <label htmlFor="newName">
                 Nome
                 <input
@@ -157,8 +161,8 @@ class ProfileEdit extends React.Component {
               </button>
             </form>
           </section>
-        ) }
-        { (submitPress) ? <Redirect to="/profile" /> : null }
+        )}
+        {submitPress ? <Redirect to="/profile" /> : null}
       </div>
     );
   }
