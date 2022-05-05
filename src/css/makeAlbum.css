@@ -9,24 +9,16 @@
   padding: 24vh 0 0 0;
 }
 
-/* @media only screen and (max-width: 969px) {
-  .searchInput-container {
-    padding-top: 25%;
-  }
-} */
-
 @media only screen and (max-width: 900px) {
   .album-container {
-    padding: 11vh 0 0 0;
+    padding: 26vh 0 0 0;
   }
 }
 
 .img-artist-album-container {
-  /* border: solid 2px green; */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  /* padding-top: 10%; */
 }
 
 .img-artist-album-container img {

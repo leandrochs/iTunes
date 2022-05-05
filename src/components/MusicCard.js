@@ -43,10 +43,3 @@ MusicCard.propTypes = {
 };
 
 export default MusicCard;
-
-// {
-//   trackId: 12,
-//   trackName: 'Track Name 1',
-//   previewUrl: 'preview-url-1',
-//   kind: 'song',
-// }

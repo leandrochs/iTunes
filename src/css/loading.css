@@ -1,7 +1,8 @@
 .loading {
   align-items: center;
   color: #1d1d1f;
-  display: flex;
+  /* display: flex; */
+  position: absolute;
   height: 70%;
   justify-content: center;
   width: 100%;

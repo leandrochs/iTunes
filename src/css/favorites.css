@@ -1,19 +1,16 @@
 .favorites-container {
-  background: radial-gradient(
-    circle at 32% 37%,
-    rgba(79, 79, 81, 1) 0%,
-    rgba(22, 22, 24, 1) 99%,
-    rgba(128, 128, 128, 1) 100%
-  );
+  /* min-height: 50%;  */
 
-  padding: 15% 0;
+  height: 77%;
 }
 
 .alert-no-favorites {
+  border: solid yellow 3px;
+  margin-top: 10%;
+  height: 30vh;
   display: flex;
-  align-items: center;
+  align-items:flex-end;
   justify-content: center;
-  height: 30%;
   font-size: 1.7rem;
   font-style: italic;
   color: #acace0a4;
