@@ -47,6 +47,7 @@ Uma aplicação capaz de reproduzir músicas das mais variadas bandas e artistas
 * Instale as dependências:
     * `npm install`
 </br>
+
 * Inicialize o projeto:
     * `npm start`
 
