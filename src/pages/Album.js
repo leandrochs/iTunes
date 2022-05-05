@@ -3,7 +3,6 @@ import React from 'react';
 import getMusics from '../services/musicsAPI';
 
 import '../css/makeAlbum.css';
-import Loadind from '../components/Loading';
 import MusicCard from '../components/MusicCard';
 import {
   addSong,
@@ -40,15 +39,16 @@ class Album extends React.Component {
   };
 
   loadingFavorite = (trackId) => {
-    const { loading, checkbox } = this.state;
-    this.setState({ loading: !loading });
+    // const { loading, checkbox } = this.state;
+    const { checkbox } = this.state;
+    // this.setState({ loading: !loading });
     if (trackId) {
       this.setState({ checkbox: [...checkbox, trackId] });
     }
   };
 
   getFavoriteSongsNow = async () => {
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
 
     const getLocalStorage = await getFavoriteSongs();
     this.setState({ localChecked: getLocalStorage }, () => {
@@ -57,7 +57,7 @@ class Album extends React.Component {
   };
 
   onInputChange = async ({ target: { value, checked } }) => {
-    this.loadingFavorite();
+    // this.loadingFavorite();
     const { data } = this.state;
 
     const targetMusic = data.filter(

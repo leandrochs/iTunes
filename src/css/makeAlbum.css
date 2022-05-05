@@ -1,11 +1,4 @@
 .album-container {
-  background: radial-gradient(
-    circle at 32% 37%,
-    rgba(79, 79, 81, 1) 0%,
-    rgba(22, 22, 24, 1) 99%,
-    rgba(128, 128, 128, 1) 100%
-  );
-
   padding: 24vh 0 0 0;
 }
 
@@ -17,8 +10,8 @@
 
 .img-artist-album-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .img-artist-album-container img {
@@ -26,10 +19,9 @@
 }
 
 .artist-album-container {
-  /* border: solid 2px red; */
-  display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
+  display: flex;
 }
 
 .artist-album-container p {

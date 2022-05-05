@@ -1,9 +1,7 @@
 .loading {
   align-items: center;
   color: #1d1d1f;
-  /* display: flex; */
-  position: absolute;
-  height: 70%;
+  height: 100%;
   justify-content: center;
   width: 100%;
   font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
