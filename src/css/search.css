@@ -1,5 +1,11 @@
 .searchPage-container {
   height: 100%;
+  background: radial-gradient(
+    circle at 32% 37%,
+    rgba(79, 79, 81, 1) 0%,
+    rgba(22, 22, 24, 1) 99%,
+    rgba(128, 128, 128, 1) 100%
+  );
 }
 
 .searchInput-container {
