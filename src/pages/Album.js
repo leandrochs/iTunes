@@ -81,52 +81,45 @@ class Album extends React.Component {
       <div data-testid="page-album" className="album-container">
         <div>
           {!loading ? (
-            <section className="img-artist-album-container">
-              <img src={ data[0].artworkUrl100 } alt="Nome do album" />
-              <span className="artist-album-container">
-                <p data-testid="artist-name">{data[0].artistName}</p>
-                <p data-testid="album-name">{data[0].collectionName}</p>
-              </span>
-            </section>
+            <main>
+              <section className="img-artist-album-container">
+                <img src={ data[0].artworkUrl100 } alt="Nome do album" />
+                <span className="artist-album-container">
+                  <p data-testid="artist-name">{data[0].artistName}</p>
+                  <p data-testid="album-name">{data[0].collectionName}</p>
+                </span>
+              </section>
+              <section style={ { paddingBottom: '10%' } }>
+                {data.map(({ previewUrl, trackId, trackName }) => {
+                  if (previewUrl) {
+                    return (
+                      <MusicCard
+                        key={ trackId }
+                        previewUrl={ previewUrl }
+                        loadingFavorite={ this.loadingFavorite }
+                        onInputChange={ this.onInputChange }
+                        hasCheck={ localChecked.some(
+                          (local) => local.trackId === trackId,
+                        ) }
+                        trackId={ trackId }
+                        trackName={ trackName }
+                      />
+                    );
+                  }
+                  return null;
+                })}
+              </section>
+            </main>
           ) : null}
-          <section style={{paddingBottom: '10%'}}>
-            {!loading
-              ? data.map(({ previewUrl, trackId, trackName }) => {
-                if (previewUrl) {
-                  return (
-                    <MusicCard
-                      key={ trackId }
-                      previewUrl={ previewUrl }
-                      loadingFavorite={ this.loadingFavorite }
-                      onInputChange={ this.onInputChange }
-                      hasCheck={ localChecked.some(
-                        (local) => local.trackId === trackId,
-                      ) }
-                      trackId={ trackId }
-                      trackName={ trackName }
-                    />
-                  );
-                }
-                return null;
-              })
-              : null}
-          </section>
         </div>
-        {loading ? <Loadind /> : null}
       </div>
     );
   }
 }
 
 Album.propTypes = {
-  // hasCheck: PropTypes.bool.isRequired,
-  // trackId: PropTypes.number.isRequired,
   match: PropTypes.string.isRequired,
   params: PropTypes.string.isRequired,
 };
 
 export default Album;
-
-// const { match } = this.props;
-// const { params } = match;
-// const { id: collectionId } = params;
