@@ -33,18 +33,20 @@ class Profile extends React.Component {
     } = this.state;
 
     return (
-      <div data-testid="page-profile" className="page-profile">
+      <div data-testid='page-profile' className='page-profile'>
         {loading ? (
-          <Loadind />
+          <section className='profile-container'>
+            <Loadind />
+          </section>
         ) : (
-          <section className="profile-container">
+          <section className='profile-container'>
             {image ? (
-              <img src={ image } alt="Profile" data-testid="profile-image" />
+              <img src={image} alt='Profile' data-testid='profile-image' />
             ) : null}
             <p>{name}</p>
             <p>{email}</p>
             <p>{description}</p>
-            <Link to="/profile/edit" className="profile-edit-link">
+            <Link to='/profile/edit' className='profile-edit-link'>
               Editar perfil
             </Link>
           </section>
