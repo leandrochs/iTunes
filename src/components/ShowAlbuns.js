@@ -7,39 +7,32 @@ class ShowAlbuns extends React.Component {
   render() {
     const { albuns } = this.props;
 
-    return (
-      (albuns.length > 0)
-        ? (
-          <div>
-            <div className="card-container">
-              {
-                albuns.map(({
-                  artistName,
-                  collectionName,
-                  collectionId,
-                  artworkUrl100,
-                }) => (
-                  <Link
-                    key={ collectionId }
-                    data-testid={ `link-to-album-${collectionId}` }
-                    to={ `/album/${collectionId}` }
-                  >
-                    <section className="card">
-                      <img src={ artworkUrl100 } alt={ artistName } />
-                      <p>{ artistName }</p>
-                      <p>{ collectionName }</p>
-                    </section>
-                  </Link>
-                ))
-              }
-            </div>
-          </div>
-        )
-        : (
-          <div>
-            <div>Carregando...</div>
-          </div>
-        )
+    return albuns.length > 0 ? (
+      <div className="showAlbun-card-container">
+        {albuns.map(
+          ({ artistName, collectionName, collectionId, artworkUrl100 }) => (
+            <Link
+              key={ collectionId }
+              data-testid={ `link-to-album-${collectionId}` }
+              to={ `/album/${collectionId}` }
+            >
+              <section className="showAlbuns-card">
+                <div className='showalbuns-div-img-container'>
+                  <img src={ artworkUrl100 } alt={ artistName } />
+                </div>
+                <div className='showalbuns-div-p-container'>
+                  <p>{artistName}</p>
+                  <p>{collectionName}</p>
+                </div>
+              </section>
+            </Link>
+          ),
+        )}
+      </div>
+    ) : (
+      <div>
+        <div>Carregando...</div>
+      </div>
     );
   }
 }

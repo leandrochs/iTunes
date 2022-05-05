@@ -51,6 +51,11 @@
 .down-sectio-container {
   display: flex;
   height: 100%;
+  /* background-color: #1d1d1f; */
+
+  /* ******** */
+
+  margin-bottom: -4em;
 }
 
 .Link {
@@ -75,6 +80,6 @@
   color: #e0e4e9;
 }
 
-.Link:active {
+.Link:focus {
   background-color: #e0e4e91a;
 }

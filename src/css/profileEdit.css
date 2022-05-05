@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.profile-container {
+.profile-edit-container {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
   margin: 8% 0;
 }
 
-.profile-container form label {
+.profile-edit-container form label {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@
   margin: 8% 0;
 }
 
-.profile-container img {
+.profile-edit-container img {
   border-radius: 50%;
   height: 80px;
   width: 80px;

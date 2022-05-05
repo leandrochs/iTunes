@@ -1,10 +1,29 @@
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
+.showAlbun-card-container {
+  /* display: flex;
+  flex-wrap: wrap; */
+  /* height: 100%; */
 }
 
-.card {
+.showAlbuns-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   margin: 5%;
+}
+
+@media only screen and (min-width: 969px) {
+  .showAlbuns-card {
+    margin: 5% 17%;
+  }
+}
+
+.showalbuns-div-img-container {
+  position: relative;
+  height: 100%;
+}
+
+.showAlbuns-card p {
+  text-align: start;
+  color: white;
+  margin-left: 1rem;
 }

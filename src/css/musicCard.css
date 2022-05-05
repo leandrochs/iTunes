@@ -1,14 +1,32 @@
 .musicCard-container {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 4%;
+  margin: 8%;
 }
 
+@media only screen and (min-width: 900px) {
+  .musicCard-container {
+    padding: 0 25%;
+  }
+}
+
+/* .musiccard-trackname-audio-input-container {} */
+
 .audio-imput-container {
-  align-items: center;
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   margin-top: 2%;
+  min-height: 15vh;
+  width: 100%;
+}
+
+.musiccard-section-p-trackname {
+  color: gray;
+  margin-left: 1.2rem;
 }
 
 .audio-imput-container label {

@@ -8,25 +8,27 @@ class MusicCard extends React.Component {
 
     return (
       <div className="musicCard-container">
-        <div>{ trackName }</div>
-        <section className="audio-imput-container">
-          <audio data-testid="audio-component" src={ previewUrl } controls>
-            <track kind="captions" />
-            O seu navegador não suporta o elemento
-            <code>audio</code>
-          </audio>
-          <label htmlFor="imput-favorite-music">
-            Favorita
-            <input
-              data-testid={ `checkbox-music-${trackId}` }
-              id="imput-favorite-music"
-              type="checkbox"
-              onChange={ onInputChange }
-              checked={ hasCheck }
-              value={ trackId }
-            />
-          </label>
-        </section>
+        <div className="musiccard-trackname-audio-input-container">
+          <p className="musiccard-section-p-trackname">{trackName}</p>
+          <section className="audio-imput-container">
+            <audio data-testid="audio-component" src={ previewUrl } controls>
+              <track kind="captions" />
+              O seu navegador não suporta o elemento
+              <code>audio</code>
+            </audio>
+            <label htmlFor="imput-favorite-music">
+              Favorita
+              <input
+                data-testid={ `checkbox-music-${trackId}` }
+                id="imput-favorite-music"
+                type="checkbox"
+                onChange={ onInputChange }
+                checked={ hasCheck }
+                value={ trackId }
+              />
+            </label>
+          </section>
+        </div>
       </div>
     );
   }

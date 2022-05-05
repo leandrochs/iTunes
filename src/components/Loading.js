@@ -3,9 +3,7 @@ import '../css/loading.css';
 
 class Loadind extends React.Component {
   render() {
-    return (
-      <div className="loading">Carregando...</div>
-    );
+    return <div className="loading">Carregando...</div>;
   }
 }
 
