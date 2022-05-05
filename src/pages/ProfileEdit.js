@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import Loadind from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
 import '../css/profileEdit.css';
+import profileAvatar from '../images/profile-avatar.png';
 
 class ProfileEdit extends React.Component {
   constructor() {
@@ -51,15 +52,15 @@ class ProfileEdit extends React.Component {
     if (name === 'newEmail') this.checkEmail(value);
   };
 
-  inputImage = ({ target }) => {
-    // Arquivo do computador
-    const file = target.files[0];
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      this.setState({ newImage: fileReader.result });
-    };
-  };
+  // inputImage = ({ target }) => {
+  //   // Arquivo do computador
+  //   const file = target.files[0];
+  //   const fileReader = new FileReader();
+  //   fileReader.readAsDataURL(file);
+  //   fileReader.onload = () => {
+  //     this.setState({ newImage: fileReader.result });
+  //   };
+  // };
 
   submitForm = async (event) => {
     event.preventDefault();
@@ -96,29 +97,27 @@ class ProfileEdit extends React.Component {
         {loading ? (
           <Loadind />
         ) : (
-          <section className="profile-edit-container">
+          <section className="profile-edit-section-container">
             {newImage ? (
-              <img src={ newImage } alt="Profile" data-testid="profile-image" />
-            ) : null}
-            <p>Alterar Imagem</p>
-            <br />
-            <br />
-            {/* <p>Endereço da internet</p>
-            <input
-              id="newImage"
-              type="text"
-              data-testid="edit-input-image"
-              name="newImage"
-              onChange={ this.handleChange }
-              value={ newImage }
-            /> */}
-            <br />
+              <img
+                src={ newImage }
+                alt="Profile"
+                data-testid="profile-image"
+              />
+            ) : (
+              <img
+                src={ profileAvatar }
+                alt="Avatar Profile"
+                data-testid="profile-image"
+              />
+            )}
+            
             <br />
 
             <p>Arquivo do computador</p>
             <input id="input-image" type="file" onChange={ this.inputImage } />
 
-            <form className="profile-container">
+            <form className="profileedit-form-container">
               <label htmlFor="newName">
                 Nome
                 <input
