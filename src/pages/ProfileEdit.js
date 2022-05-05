@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import Header from '../components/Header';
 import Loadind from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
 import '../css/profileEdit.css';
@@ -52,11 +51,14 @@ class ProfileEdit extends React.Component {
     if (name === 'newEmail') this.checkEmail(value);
   };
 
-  inputImage = ({ target }) => { // Arquivo do computador
+  inputImage = ({ target }) => {
+    // Arquivo do computador
     const file = target.files[0];
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
-    fileReader.onload = () => { this.setState({ newImage: fileReader.result }) }
+    fileReader.onload = () => {
+      this.setState({ newImage: fileReader.result });
+    };
   };
 
   submitForm = async (event) => {
@@ -91,11 +93,10 @@ class ProfileEdit extends React.Component {
 
     return (
       <div data-testid="page-profile-edit" className="page-profile-edit">
-        <Header />
         {loading ? (
           <Loadind />
         ) : (
-          <section className="profile-container">
+          <section className="profile-edit-container">
             {newImage ? (
               <img src={ newImage } alt="Profile" data-testid="profile-image" />
             ) : null}

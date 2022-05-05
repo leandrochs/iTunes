@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 
 import '../css/makeAlbum.css';
 import Loadind from '../components/Loading';
 import MusicCard from '../components/MusicCard';
-import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import {
+  addSong,
+  removeSong,
+  getFavoriteSongs,
+} from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -34,7 +37,7 @@ class Album extends React.Component {
     this.setState({ data: musicAPIResponse }, () => {
       this.setState({ loading: false });
     });
-  }
+  };
 
   loadingFavorite = (trackId) => {
     const { loading, checkbox } = this.state;
@@ -42,7 +45,7 @@ class Album extends React.Component {
     if (trackId) {
       this.setState({ checkbox: [...checkbox, trackId] });
     }
-  }
+  };
 
   getFavoriteSongsNow = async () => {
     this.setState({ loading: true });
@@ -51,13 +54,15 @@ class Album extends React.Component {
     this.setState({ localChecked: getLocalStorage }, () => {
       this.setState({ loading: false });
     });
-  }
+  };
 
   onInputChange = async ({ target: { value, checked } }) => {
     this.loadingFavorite();
     const { data } = this.state;
 
-    const targetMusic = data.filter(({ trackId }) => trackId === parseInt(value, 10));
+    const targetMusic = data.filter(
+      ({ trackId }) => trackId === parseInt(value, 10),
+    );
 
     if (!checked) {
       await removeSong(...targetMusic);
@@ -67,31 +72,26 @@ class Album extends React.Component {
 
     this.loadingFavorite(value);
     this.getFavoriteSongsNow();
-  }
+  };
 
   render() {
     const { data, loading, localChecked } = this.state;
 
     return (
-      <div data-testid="page-album">
-        <Header />
+      <div data-testid="page-album" className="album-container">
         <div>
-          { (!loading) ? (
+          {!loading ? (
             <section className="img-artist-album-container">
               <img src={ data[0].artworkUrl100 } alt="Nome do album" />
               <span className="artist-album-container">
-                <div data-testid="artist-name">
-                  { data[0].artistName}
-                </div>
-                <div data-testid="album-name">
-                  {data[0].collectionName }
-                </div>
+                <p data-testid="artist-name">{data[0].artistName}</p>
+                <p data-testid="album-name">{data[0].collectionName}</p>
               </span>
             </section>
-          ) : null }
-          <section>
-            { (!loading) ? (
-              data.map(({ previewUrl, trackId, trackName }) => {
+          ) : null}
+          <section style={{paddingBottom: '10%'}}>
+            {!loading
+              ? data.map(({ previewUrl, trackId, trackName }) => {
                 if (previewUrl) {
                   return (
                     <MusicCard
@@ -99,10 +99,9 @@ class Album extends React.Component {
                       previewUrl={ previewUrl }
                       loadingFavorite={ this.loadingFavorite }
                       onInputChange={ this.onInputChange }
-                      hasCheck={
-                        localChecked
-                          .some((local) => local.trackId === trackId)
-                      }
+                      hasCheck={ localChecked.some(
+                        (local) => local.trackId === trackId,
+                      ) }
                       trackId={ trackId }
                       trackName={ trackName }
                     />
@@ -110,10 +109,10 @@ class Album extends React.Component {
                 }
                 return null;
               })
-            ) : null }
+              : null}
           </section>
         </div>
-        {(loading) ? <Loadind /> : null }
+        {loading ? <Loadind /> : null}
       </div>
     );
   }

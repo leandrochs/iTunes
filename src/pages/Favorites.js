@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';
 import Loadind from '../components/Loading';
 import MusicCard from '../components/MusicCard';
 import {
@@ -13,7 +12,6 @@ class Favorites extends React.Component {
   constructor() {
     super();
     this.state = {
-      // data: [],
       loading: false,
       localChecked: [],
     };
@@ -64,31 +62,28 @@ class Favorites extends React.Component {
 
     return (
       <div data-testid="page-favorites" className="favorites-container">
-        <Header />
-        <section>
-          {!loading ? (
-            localChecked.map(({ previewUrl, trackId, trackName }) => {
-              if (previewUrl) {
-                return (
-                  <MusicCard
-                    key={ trackId }
-                    previewUrl={ previewUrl }
-                    onInputChange={ this.onInputChange }
-                    hasCheck={ localChecked.some(
-                      (local) => local.trackId === trackId,
-                    ) }
-                    trackId={ trackId }
-                    trackName={ trackName }
-                  />
-                );
-              }
-              return null;
-            })
-          ) : (
-            <Loadind />
-          )}
-        </section>
-        {localChecked.length === 0 ? (
+        {!loading ? (
+          localChecked.map(({ previewUrl, trackId, trackName }) => {
+            if (previewUrl) {
+              return (
+                <MusicCard
+                  key={ trackId }
+                  previewUrl={ previewUrl }
+                  onInputChange={ this.onInputChange }
+                  hasCheck={ localChecked.some(
+                    (local) => local.trackId === trackId,
+                  ) }
+                  trackId={ trackId }
+                  trackName={ trackName }
+                />
+              );
+            }
+            return null;
+          })
+        ) : (
+          <Loadind />
+        )}
+        {!loading && localChecked.length === 0 ? (
           <div className="alert-no-favorites">Nada por aqui ainda =/</div>
         ) : null}
       </div>

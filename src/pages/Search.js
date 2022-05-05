@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';
 import Loadind from '../components/Loading';
 import ShowAlbuns from '../components/ShowAlbuns';
 import '../css/search.css';
@@ -43,12 +42,11 @@ render() {
 
   return (
     <div className="searchPage-container" data-testid="page-search">
-      <Header />
       <div className="searchInput-container">
         <input
           type="text"
           data-testid="search-artist-input"
-          placeholder="Pesquise por Banda ou artista"
+          placeholder="Banda ou artista"
           onChange={ this.onInputChange }
           value={ artistName }
         />
@@ -64,7 +62,7 @@ render() {
       { (loading === true) ? <Loadind /> : null }
       { (loading === 'completed' && albuns.length > 0)
         ? (
-          <div>
+          <div style={{textAlign: 'center', color: 'gray'}}>
             <p>{`Resultado de álbuns de: ${showArtistName}`}</p>
             <ShowAlbuns albuns={ albuns } />
           </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import Loadind from '../components/Loading';
 import { getUser } from '../services/userAPI';
 import '../css/profile.css';
@@ -35,7 +34,6 @@ class Profile extends React.Component {
 
     return (
       <div data-testid="page-profile" className="page-profile">
-        <Header />
         {loading ? (
           <Loadind />
         ) : (
