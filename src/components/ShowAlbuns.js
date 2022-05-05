@@ -17,10 +17,10 @@ class ShowAlbuns extends React.Component {
               to={ `/album/${collectionId}` }
             >
               <section className="showAlbuns-card">
-                <div className='showalbuns-div-img-container'>
+                <div className="showalbuns-div-img-container">
                   <img src={ artworkUrl100 } alt={ artistName } />
                 </div>
-                <div className='showalbuns-div-p-container'>
+                <div className="showalbuns-div-p-container">
                   <p>{artistName}</p>
                   <p>{collectionName}</p>
                 </div>
